@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Drawer = () => (
   <div style={{ display: 'none' }} className="overlay">
     <div className="drawer">
