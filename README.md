@@ -6,5 +6,6 @@
 
 **Stack:**
 
-- ReactJS
+- ReactJS (useState, useEffect)
 - SCSS
+- fetch

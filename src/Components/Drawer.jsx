@@ -1,36 +1,22 @@
 import React from 'react';
 
-const Drawer = () => (
-  <div style={{ display: 'none' }} className="overlay">
+const Drawer = ({ onClose, items }) => (
+  <div className="overlay">
     <div className="drawer">
       <h2 className="d-flex justify-between mb-30">
-        Корзина <img className="cu-p" src="/img/btn-remove.svg" alt="Remove" />
+        Корзина <img onClick={onClose} className="cu-p" src="/img/btn-remove.svg" alt="Close" />
       </h2>
       <div className="items">
-        <div className="cart-item d-flex align-center mb-20">
-          <div style={{ backgroundImage: 'url("/img/sneakers/1.jpg")' }} className="cart-item-img" />
-          <div className="mr-20 flex">
-            <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-            <b>12 999 руб.</b>
+        {items.map((obj, i) => (
+          <div key={i} className="cart-item d-flex align-center mb-20">
+            <div style={{ backgroundImage: `url(${obj.imageUrl})` }} className="cart-item-img" />
+            <div className="mr-20 flex">
+              <p className="mb-5">{obj.title}</p>
+              <b>{obj.price} руб.</b>
+            </div>
+            <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove" />
           </div>
-          <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove" />
-        </div>
-        <div className="cart-item d-flex align-center mb-20">
-          <div style={{ backgroundImage: 'url("/img/sneakers/1.jpg")' }} className="cart-item-img" />
-          <div className="mr-20 flex">
-            <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-            <b>12 999 руб.</b>
-          </div>
-          <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove" />
-        </div>
-        <div className="cart-item d-flex align-center mb-20">
-          <div style={{ backgroundImage: 'url("/img/sneakers/1.jpg")' }} className="cart-item-img" />
-          <div className="mr-20 flex">
-            <p className="mb-5">Мужские Кроссовки Nike Air Max 270</p>
-            <b>12 999 руб.</b>
-          </div>
-          <img className="remove-btn" src="/img/btn-remove.svg" alt="Remove" />
-        </div>
+        ))}
       </div>
       <div className="cart-total-block">
         <ul>

@@ -21,6 +21,7 @@ header {
   border-bottom: 1px solid #eaeaea;
 
   img {
+    vertical-align: text-bottom;
     margin-right: 15px;
   }
 
@@ -34,15 +35,6 @@ header {
   h1 {
     margin: 0;
   }
-}
-
-.button {
-  background: #ffffff;
-  border: 1px solid #f2f2f2;
-  border-radius: 8px;
-  height: 32px;
-  width: 32px;
-  cursor: pointer;
 }
 
 .search-block {
