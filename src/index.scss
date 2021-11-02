@@ -41,6 +41,23 @@ header {
   border: 1px solid #f3f3f3;
   border-radius: 10px;
   padding: 0 15px;
+  position: relative;
+
+  .clear {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    width: 18px;
+    height: 18px;
+    background: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 8px;
+
+    img {
+      width: 100%;
+    }
+  }
 
   input {
     border: 0;
@@ -48,6 +65,16 @@ header {
     font-size: 16px;
     width: 250px;
   }
+}
+
+.button {
+  background-color: #ffffff;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  height: 32px;
+  width: 32px;
+  cursor: pointer;
 }
 
 .overlay {
@@ -79,6 +106,34 @@ header {
 
   h2 {
     margin: 0;
+  }
+}
+
+.cart-empty {
+  text-align: center;
+
+  p {
+    width: 280px;
+    line-height: 24px;
+  }
+
+  .green-button {
+    width: 245px;
+    margin-top: 20px;
+
+    &:hover {
+      img {
+        transform: rotate(180deg) translateX(3px);
+      }
+    }
+
+    img {
+      position: relative;
+      top: 1px;
+      transform: rotate(180deg);
+      margin-right: 15px;
+      transition: transform 0.15s ease-in-out;
+    }
   }
 }
 
@@ -167,7 +222,6 @@ header {
 
   .remove-btn {
     opacity: 0.5;
-    cursor: pointer;
     transition: opacity 0.15s ease-in-out;
 
     &:hover {

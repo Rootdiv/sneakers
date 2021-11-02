@@ -14,7 +14,6 @@
 
   .favorite {
     position: absolute;
-    cursor: pointer;
   }
 
   span {
@@ -30,15 +29,5 @@
   h5 {
     font-weight: 400;
     font-size: 14px;
-  }
-
-  .button {
-    background-color: #ffffff;
-    padding: 0;
-    border: none;
-    border-radius: 8px;
-    height: 32px;
-    width: 32px;
-    cursor: pointer;
   }
 }

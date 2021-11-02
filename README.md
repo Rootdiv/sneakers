@@ -8,4 +8,5 @@
 
 - ReactJS (useState, useEffect)
 - SCSS
-- fetch
+- Axios
+- React Router

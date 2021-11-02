@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 import styles from './Card.module.scss';
 
-const Card = ({ title, imageUrl, price, onFavorite, onPlus }) => {
+const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, favorite = false }) => {
   const [isAdded, setIsAdded] = useState(false);
+  const [isFavorite, setIsFavorite] = React.useState(favorite);
 
   const onClickPlus = () => {
-    onPlus({ title, imageUrl, price });
+    onPlus({ id, title, imageUrl, price });
     setIsAdded(!isAdded);
+  };
+
+  const onClickFavorite = () => {
+    onFavorite({ id, title, imageUrl, price });
+    setIsFavorite(!isFavorite);
   };
 
   return (
     <div className={styles.card}>
-      <div className={styles.favorite} onClick={onFavorite}>
-        <img src="/img/heart-unlike.svg" alt="Unlike" />
-      </div>
+      <button className={`button ${styles.favorite}`} onClick={onClickFavorite}>
+        <img src={`/img/${isFavorite ? 'liked.svg' : 'unlike.svg'}`} alt={isFavorite ? 'Liked' : 'Unlike'} />
+      </button>
       <img width={133} height={112} src={imageUrl} alt="Sneakers" />
       <h5>{title}</h5>
       <div className="d-flex justify-between align-center">
@@ -21,7 +27,7 @@ const Card = ({ title, imageUrl, price, onFavorite, onPlus }) => {
           <span>Цена:</span>
           <b>{price} руб.</b>
         </div>
-        <button className={styles.button} onClick={onClickPlus}>
+        <button className="button" onClick={onClickPlus}>
           <img src={`/img/btn-${isAdded ? 'checked.svg' : 'plus.svg'}`} alt="Plus" />
         </button>
       </div>
