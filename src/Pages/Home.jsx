@@ -4,7 +4,7 @@ import Card from '../Components/Card';
 const Home = ({ items, searchValue, setSearchValue, onChangeSearchInput, onAddToFavorite, onAddToCart, isLoading }) => {
   const renderItems = () => {
     const filteredItems = items.filter(item => item.title.toLowerCase().includes(searchValue.toLowerCase()));
-    return (isLoading ? [...Array(10)] : filteredItems).map((item, index) => (
+    return (isLoading ? [...Array(8)] : filteredItems).map((item, index) => (
       <Card
         key={isLoading ? index : item.id}
         onFavorite={obj => onAddToFavorite(obj)}

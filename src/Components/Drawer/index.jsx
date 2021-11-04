@@ -1,15 +1,18 @@
 import React, { Fragment, useState, useContext } from 'react';
 import axios from 'axios';
-import Info from './Info';
-import AppContext from '../context';
+import Info from '../Info';
+import AppContext from '../../context';
+import { useCart } from '../../Hooks/useCart';
+import styles from './Drawer.module.scss';
 
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-const Drawer = ({ onClose, onRemove, items = [] }) => {
-  const { URL_MOCKAPI, cartItems, setCartItems } = useContext(AppContext);
+const Drawer = ({ onClose, onRemove, items = [], opened }) => {
+  const { URL_MOCKAPI } = useContext(AppContext);
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const { cartItems, setCartItems, totalPrice } = useCart();
 
   const onClickOrder = async () => {
     try {
@@ -33,8 +36,8 @@ const Drawer = ({ onClose, onRemove, items = [] }) => {
   };
 
   return (
-    <div className="overlay">
-      <div className="drawer">
+    <div className={`${styles.overlay} ${opened ? styles.overlayVisible : ''}`}>
+      <div className={styles.drawer}>
         <div className="d-flex justify-between mb-30">
           <h2>Корзина</h2>
           <button className="button" onClick={onClose}>
@@ -43,7 +46,7 @@ const Drawer = ({ onClose, onRemove, items = [] }) => {
         </div>
         {items.length > 0 ? (
           <Fragment>
-            <div className="items">
+            <div className={styles.items}>
               {items.map(obj => (
                 <div key={obj.id} className="cart-item d-flex align-center mb-20">
                   <div style={{ backgroundImage: `url(${obj.imageUrl})` }} className="cart-item-img"></div>
@@ -61,13 +64,13 @@ const Drawer = ({ onClose, onRemove, items = [] }) => {
               <ul>
                 <li>
                   <span>Итого:</span>
-                  <div></div>
-                  <b>21 498 руб.</b>
+                  <div />
+                  <b>{totalPrice} руб.</b>
                 </li>
                 <li>
                   <span>Налог 5%:</span>
-                  <div></div>
-                  <b>1074 руб. </b>
+                  <div />
+                  <b>{Math.round((totalPrice / 100) * 5)} руб. </b>
                 </li>
               </ul>
               <button disabled={isLoading} onClick={onClickOrder} className="green-button">

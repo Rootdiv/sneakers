@@ -1,19 +1,16 @@
-import React, { useState, Fragment, useContext } from 'react';
+import React, { Fragment, useContext } from 'react';
 import styles from './Card.module.scss';
 import ContentLoader from 'react-content-loader';
 import AppContext from '../../context';
 
-const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, favorite = false, loading = false }) => {
-  const { isItemAdded } = useContext(AppContext);
-  const [isFavorite, setIsFavorite] = useState(favorite);
+const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, loading = false }) => {
+  const { isItemAdded, isItemFavorite } = useContext(AppContext);
+  const obj = { id, parentId: id, title, imageUrl, price };
 
-  const onClickPlus = () => {
-    onPlus({ id, title, imageUrl, price });
-  };
+  const onClickPlus = () => onPlus(obj);
 
   const onClickFavorite = () => {
-    onFavorite({ id, title, imageUrl, price });
-    setIsFavorite(!isFavorite);
+    onFavorite(obj);
   };
 
   return (
@@ -34,9 +31,14 @@ const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, favorite = false
         </ContentLoader>
       ) : (
         <Fragment>
-          <button className={`button ${styles.favorite}`} onClick={onClickFavorite}>
-            <img src={`/img/${isFavorite ? 'liked.svg' : 'unlike.svg'}`} alt={isFavorite ? 'Liked' : 'Unlike'} />
-          </button>
+          {onFavorite && (
+            <button className={`button ${styles.favorite}`} onClick={onClickFavorite}>
+              <img
+                src={`/img/${isItemFavorite(id) ? 'liked.svg' : 'unlike.svg'}`}
+                alt={isItemFavorite(id) ? 'Liked' : 'Unlike'}
+              />
+            </button>
+          )}
           <img width="100%" height={130} src={imageUrl} alt="Sneakers" />
           <h5>{title}</h5>
           <div className="d-flex justify-between align-center">
@@ -44,12 +46,14 @@ const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, favorite = false
               <span>Цена:</span>
               <b>{price} руб.</b>
             </div>
-            <button className="button" onClick={onClickPlus}>
-              <img
-                src={`/img/btn-${isItemAdded(id) ? 'checked.svg' : 'plus.svg'}`}
-                alt={isItemAdded(id) ? 'Checked' : 'Plus'}
-              />
-            </button>
+            {onPlus && (
+              <button className="button" onClick={onClickPlus}>
+                <img
+                  src={`/img/btn-${isItemAdded(id) ? 'checked.svg' : 'plus.svg'}`}
+                  alt={isItemAdded(id) ? 'Checked' : 'Plus'}
+                />
+              </button>
+            )}
           </div>
         </Fragment>
       )}
