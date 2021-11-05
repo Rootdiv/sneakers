@@ -3,8 +3,8 @@ import styles from './Card.module.scss';
 import ContentLoader from 'react-content-loader';
 import AppContext from '../../context';
 
-const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, loading = false }) => {
-  const { isItemAdded, isItemFavorite } = useContext(AppContext);
+const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, favorite = false, loading = false }) => {
+  const { isItemAdded } = useContext(AppContext);
   const obj = { id, parentId: id, title, imageUrl, price };
 
   const onClickPlus = () => onPlus(obj);
@@ -33,10 +33,7 @@ const Card = ({ id, title, imageUrl, price, onFavorite, onPlus, loading = false 
         <Fragment>
           {onFavorite && (
             <button className={`button ${styles.favorite}`} onClick={onClickFavorite}>
-              <img
-                src={`/img/${isItemFavorite(id) ? 'liked.svg' : 'unlike.svg'}`}
-                alt={isItemFavorite(id) ? 'Liked' : 'Unlike'}
-              />
+              <img src={`/img/${favorite ? 'liked.svg' : 'unlike.svg'}`} alt={favorite ? 'Liked' : 'Unlike'} />
             </button>
           )}
           <img width="100%" height={130} src={imageUrl} alt="Sneakers" />
