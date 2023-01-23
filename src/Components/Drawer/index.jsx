@@ -27,10 +27,10 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
       for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i];
         await axios.delete(URL_API + '/cart/' + item.id);
-        await delay(1000);
+        await delay(2000);
       }
     } catch (error) {
-      alert('Ошибка при создании заказа :(');
+      alert('Ошибка при создании заказа');
     }
     setIsLoading(false);
   };
