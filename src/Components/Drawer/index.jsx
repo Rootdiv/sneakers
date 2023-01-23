@@ -8,7 +8,7 @@ import styles from './Drawer.module.scss';
 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const Drawer = ({ onClose, onRemove, items = [], opened }) => {
-  const { URL_MOCKAPI } = useContext(AppContext);
+  const { URL_API } = useContext(AppContext);
   const [orderId, setOrderId] = useState(null);
   const [isOrderComplete, setIsOrderComplete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
   const onClickOrder = async () => {
     try {
       setIsLoading(true);
-      const { data } = await axios.post(URL_MOCKAPI + '/orders', {
+      const { data } = await axios.post(URL_API + '/orders', {
         items: cartItems,
       });
       setOrderId(data.id);
@@ -26,7 +26,7 @@ const Drawer = ({ onClose, onRemove, items = [], opened }) => {
 
       for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i];
-        await axios.delete(URL_MOCKAPI + '/cart/' + item.id);
+        await axios.delete(URL_API + '/cart/' + item.id);
         await delay(1000);
       }
     } catch (error) {

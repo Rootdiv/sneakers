@@ -9,7 +9,7 @@ import Orders from './Pages/Orders';
 import AppContext from './context';
 //export const AppContext = React.createContext({});
 
-const URL_MOCKAPI = 'https://61771dac9c328300175f57db.mockapi.io';
+const URL_API = `${window.location.protocol}//${window.location.hostname}:1721/sneakers`;
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -23,9 +23,9 @@ const App = () => {
     const fetchData = async () => {
       try {
         const [cartResponse, favoritesResponse, itemsResponse] = await Promise.all([
-          axios.get(URL_MOCKAPI + '/cart'),
-          axios.get(URL_MOCKAPI + '/favorites'),
-          axios.get(URL_MOCKAPI + '/items'),
+          axios.get(URL_API + '/cart'),
+          axios.get(URL_API + '/favorites'),
+          axios.get(URL_API + '/items'),
         ]);
 
         setIsLoading(false);
@@ -33,7 +33,7 @@ const App = () => {
         setFavorites(favoritesResponse.data);
         setItems(itemsResponse.data);
       } catch (error) {
-        alert('Ошибка при запросе данных ;(');
+        alert('Ошибка при запросе данных');
         console.error(error);
       }
     };
@@ -46,10 +46,10 @@ const App = () => {
       const findItem = cartItems.find(item => Number(item.parentId) === Number(obj.id));
       if (findItem) {
         setCartItems(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)));
-        await axios.delete(`${URL_MOCKAPI}/cart/${findItem.id}`);
+        await axios.delete(`${URL_API}/cart/${findItem.id}`);
       } else {
         setCartItems(prev => [...prev, obj]);
-        const { data } = await axios.post(URL_MOCKAPI + '/cart', obj);
+        const { data } = await axios.post(URL_API + '/cart', obj);
         setCartItems(prev =>
           prev.map(item => {
             if (item.parentId === data.parentId) {
@@ -70,7 +70,7 @@ const App = () => {
 
   const onRemoveItem = id => {
     try {
-      axios.delete(`${URL_MOCKAPI}/cart/${id}`);
+      axios.delete(`${URL_API}/cart/${id}`);
       setCartItems(prev => prev.filter(item => Number(item.id) !== Number(id)));
     } catch (error) {
       alert('Ошибка при удалении из корзины');
@@ -83,10 +83,10 @@ const App = () => {
       const findItem = favorites.find(item => Number(item.parentId) === Number(obj.id));
       if (findItem) {
         setFavorites(prev => prev.filter(item => Number(item.parentId) !== Number(obj.id)));
-        await axios.delete(`${URL_MOCKAPI}/favorites/${findItem.id}`);
+        await axios.delete(`${URL_API}/favorites/${findItem.id}`);
       } else {
         setFavorites(prev => [...prev, obj]);
-        const { data } = await axios.post(URL_MOCKAPI + '/favorites', obj);
+        const { data } = await axios.post(URL_API + '/favorites', obj);
         setFavorites(prev =>
           prev.map(item => {
             if (item.parentId === data.parentId) {
@@ -107,10 +107,10 @@ const App = () => {
 
   const onRemoveFavorite = id => {
     try {
-      axios.delete(`${URL_MOCKAPI}/favorites/${id}`);
+      axios.delete(`${URL_API}/favorites/${id}`);
       setFavorites(prev => prev.filter(item => Number(item.id) !== Number(id)));
     } catch (error) {
-      alert('Ошибка при удалении из корзины');
+      alert('Ошибка при удалении из фаворитов');
       console.error(error);
     }
   };
@@ -124,7 +124,7 @@ const App = () => {
   return (
     <AppContext.Provider
       value={{
-        URL_MOCKAPI,
+        URL_API,
         items,
         cartItems,
         favorites,

@@ -5,14 +5,14 @@ import Card from '../Components/Card';
 import AppContext from '../context';
 
 function Orders() {
-  const { URL_MOCKAPI } = useContext(AppContext);
+  const { URL_API } = useContext(AppContext);
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       try {
-        const { data } = await axios.get(URL_MOCKAPI + '/orders');
+        const { data } = await axios.get(URL_API + '/orders');
         setOrders(data.reduce((prev, obj) => [...prev, ...obj.items], []));
         //setOrders(data.map(obj => obj.items).flat());
         setIsLoading(false);
@@ -21,7 +21,7 @@ function Orders() {
         console.error(error);
       }
     })();
-  }, [URL_MOCKAPI]);
+  }, [URL_API]);
 
   return (
     <div className="content p-40">
