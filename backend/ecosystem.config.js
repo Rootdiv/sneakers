@@ -3,7 +3,7 @@ module.exports = {
     {
       name: 'sneakers',
       script: 'index.js',
-      watch: '.',
+      watch: 'index.js',
       env: {
         HTTP: 'https',
       },
