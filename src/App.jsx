@@ -9,7 +9,9 @@ import Orders from './Pages/Orders';
 import AppContext from './context';
 //export const AppContext = React.createContext({});
 
-const URL_API = `${window.location.protocol}//${window.location.hostname}:1721/sneakers`;
+const HOST_URI =
+  process.env.NODE_ENV === 'production' ? 'https://api.rootdiv.ru' : 'http://localhost:1721';
+const URL_API = `${HOST_URI}/sneakers`;
 
 const App = () => {
   const [items, setItems] = useState([]);
@@ -135,7 +137,12 @@ const App = () => {
         setCartItems,
       }}>
       <div className="wrapper clear">
-        <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} opened={cartOpened} />
+        <Drawer
+          items={cartItems}
+          onClose={() => setCartOpened(false)}
+          onRemove={onRemoveItem}
+          opened={cartOpened}
+        />
         <Header onClickCart={() => setCartOpened(true)} />
         <Route exact path="/">
           <Home
