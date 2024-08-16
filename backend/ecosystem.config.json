@@ -1,0 +1,12 @@
+{
+  "name": "sneakers",
+  "script": "index.js",
+  "watch": [
+    "modules",
+    "const.js",
+    "index.js"
+  ],
+  "env": {
+    "PROD": true
+  }
+}
